@@ -22,15 +22,15 @@ const chatbotKnowledgeBase = `
 
 * **ঠিকানা:** ১১১/২ কাওলা জামে মসজিদ রোড, আশকোনা (হজ ক্যাম্প সংলগ্ন), দক্ষিণখান, ঢাকা-১২৩০।
 
-* **যোগাযোগ:** 📧 ইমেইল: support@fabtechit.com, fabtechit8@gmail.com 
-📞 ফোন: +8801892-382840, +8801313-186576 
+* **যোগাযোগ:** 📧 ইমেইল: support@fabtechit.com, fabtechit8@gmail.com
+📞 ফোন: +8801892-382840, +8801313-186576
 `;
 
 // 🧠 Bangla System Instruction
 const systemInstruction = `
 আপনি ঢাকা আইডিয়াল স্কুল অ্যান্ড কলেজ-এর অফিসিয়াল চ্যাটবট।
 
-আপনার কাজ শুধুমাত্র উপরোক্ত তথ্যের ভিত্তিতে ব্যবহারকারীর প্রশ্নের উত্তর দেওয়া। 
+আপনার কাজ শুধুমাত্র উপরোক্ত তথ্যের ভিত্তিতে ব্যবহারকারীর প্রশ্নের উত্তর দেওয়া।
 আপনি কখনই বলবেন না আপনি AI বা মেশিন।
 
 যদি কোনো প্রশ্ন আপনার তথ্যের বাইরে হয়, অনুগ্রহ করে নম্রভাবে জানান যে আপনি সে বিষয়ে সাহায্য করতে পারবেন না এবং অফিসিয়াল টিমের সাথে যোগাযোগ করতে বলেন।
@@ -47,6 +47,7 @@ const Chatbot = () => {
   const [isTyping, setIsTyping] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const messagesEndRef = useRef(null);
+  const inputRef = useRef(null);
 
   useEffect(() => {
     if (messages.length > 0) {
@@ -70,6 +71,12 @@ const Chatbot = () => {
   useEffect(() => {
     scrollToBottom();
   }, [messages, isTyping]);
+
+  useEffect(() => {
+    if (isOpen && inputRef.current) {
+      inputRef.current.focus();
+    }
+  }, [isOpen]);
 
   const scrollToBottom = () => {
     if (messagesEndRef.current) {
@@ -152,6 +159,13 @@ const Chatbot = () => {
 
   const toggleChat = () => {
     setIsOpen(!isOpen);
+    if (!isOpen) {
+      setTimeout(() => {
+        if (inputRef.current) {
+          inputRef.current.focus();
+        }
+      }, 300);
+    }
   };
 
   const clearChat = () => {
@@ -219,6 +233,7 @@ const Chatbot = () => {
                   onClick={clearChat}
                   className="trash-button"
                   whileTap={{ scale: 0.9 }}
+                  style={{padding: "0rem !important"}}
                 >
                   <FaTrashAlt />
                 </motion.button>
@@ -278,6 +293,7 @@ const Chatbot = () => {
 
             <form onSubmit={handleSendMessage} className="chatbot-input-form">
               <input
+                ref={inputRef}
                 type="text"
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
