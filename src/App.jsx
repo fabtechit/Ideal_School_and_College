@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import LLoadingAnimation from "./loader/loader";
-import ScrollToTop from "./ScrollTop/ScrollToTop"; // I changed this line
+import ScrollTop from "./scrolltop/scrolltop";
 
 import Navbar from './navbar/navbar';
 import Hero from './pages/hero';
@@ -16,7 +16,7 @@ import Teachers from './School administration/teachers';
 import Officer_Staff from './School administration/Officers_Staff';
 import Managment from './School administration/management_team';
 import ClassActivities from './Institutional activities/Class_activities';
-import AnnualActivities from './Institutional activities/AnnualActivities';
+import AnnualActivities from './Institutional activities/AnnualActivities'; 
 import Curriculum from './Institutional activities/Curriculum';
 // Assuming the filename is 'curriclum_pdf_view.js' which exports PDFViewer
 import PDFViewer from './Institutional activities/curriclum_pdf_view';
@@ -43,14 +43,14 @@ const App = () => {
 
  useEffect(() => {
   const loadWebsiteContent = async () => {
-   try {   
-   const randomLoadTime = Math.random() * 2000 + 1000; 
-   await new Promise(resolve => setTimeout(resolve, randomLoadTime));
-   console.log("Website content loaded successfully!");
+   try {    
+    const randomLoadTime = Math.random() * 2000 + 1000; 
+    await new Promise(resolve => setTimeout(resolve, randomLoadTime));
+    console.log("Website content loaded successfully!");
    } catch (error) {
-   console.error("Error loading website content:", error);
+    console.error("Error loading website content:", error);
    } finally {
-   setIsLoading(false);
+    setIsLoading(false);
    }
   };
 
@@ -63,7 +63,6 @@ const App = () => {
 
  return (
   <Router>
-   <ScrollToTop /> {/* I also changed this line to use the correct component name */}
    <Navbar />
    <Routes>
     <Route
@@ -99,6 +98,7 @@ const App = () => {
     <Route path="*" element={<Error />} />
    </Routes>
    <Footer />
+   <ScrollTop />
   </Router>
  );
 };
