@@ -1,0 +1,163 @@
+/* src/assets/css/library.css */
+
+/* --- General Page Styles --- */
+.library-page-main {
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 40px 20px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f4f7ff;
+}
+
+.page-main-heading {
+    text-align: center;
+    font-size: 2.8rem;
+    font-weight: 700;
+    color: #2c3e50;
+    margin-bottom: 50px;
+    position: relative;
+    padding-bottom: 15px;
+}
+
+.page-main-heading::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 4px;
+    background-color: #3498db;
+    border-radius: 2px;
+}
+
+.library-content-wrapper {
+    background: #ffffff;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.08);
+}
+
+.library-intro-paragraph {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: #555;
+    margin-bottom: 40px;
+    text-align: justify;
+    font-weight: 500;
+}
+
+/* --- Library Section Styling --- */
+.library-section {
+    margin-bottom: 30px;
+    padding: 25px;
+    background-color: #f9fbfd;
+    border-left: 5px solid #3498db;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+}
+
+.library-section:last-child {
+    margin-bottom: 0;
+}
+
+.section-sub-heading {
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: #2c3e50;
+    margin-bottom: 15px;
+}
+
+.section-text {
+    font-size: 1rem;
+    line-height: 1.7;
+    color: #444;
+    text-align: justify;
+}
+
+.section-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.section-list li {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #444;
+    margin-bottom: 15px;
+    padding-left: 25px;
+    position: relative;
+}
+
+/* Custom bullet points for list items */
+.section-list li::before {
+    content: "•";
+    color: #3498db;
+    font-weight: bold;
+    display: inline-block;
+    width: 1em;
+    margin-left: -1em;
+}
+
+.timetable {
+    font-size: 1rem;
+    line-height: 1.8;
+    color: #444;
+}
+
+.timetable strong {
+    color: #2c3e50;
+}
+
+/* --- Responsive Adjustments --- */
+@media (max-width: 768px) {
+    .page-main-heading {
+        font-size: 2.2rem;
+        margin-bottom: 40px;
+    }
+    .library-content-wrapper {
+        padding: 25px;
+    }
+    .library-intro-paragraph {
+        font-size: 1rem;
+        margin-bottom: 30px;
+    }
+    .library-section {
+        padding: 20px;
+        margin-bottom: 25px;
+    }
+    .section-sub-heading {
+        font-size: 1.5rem;
+    }
+    .section-text,
+    .section-list li,
+    .timetable {
+        font-size: 0.95rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .library-page-main {
+        padding: 20px 10px;
+    }
+    .library-content-wrapper {
+        padding: 15px;
+    }
+    .page-main-heading {
+        font-size: 1.8rem;
+        margin-bottom: 30px;
+    }
+    .library-section {
+        padding: 15px;
+        margin-bottom: 20px;
+    }
+    .section-sub-heading {
+        font-size: 1.3rem;
+    }
+    .section-list li,
+    .timetable {
+        font-size: 0.9rem;
+    }
+}

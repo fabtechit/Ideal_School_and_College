@@ -1,0 +1,200 @@
+/* Base styles for the entire page */
+.governing-body-page-main {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 20px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f8f9fa; /* Light gray background for a clean look */
+}
+
+/* Page heading with a modern, centered underline */
+.page-main-heading {
+    text-align: center;
+    font-size: 2.8rem;
+    font-weight: 700;
+    color: #2c3e50;
+    margin-bottom: 50px;
+    position: relative;
+    padding-bottom: 15px;
+}
+
+.page-main-heading::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 4px;
+    background-color: #007bff; /* A nice blue color */
+    border-radius: 2px;
+}
+
+/* --- Responsive Grid Layout for Member Profiles --- */
+.governing-body-profiles-grid {
+    display: grid;
+    /* Automatically creates columns based on available space */
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); 
+    gap: 30px;
+    justify-items: center;
+}
+
+/* --- Individual Member Card Styling --- */
+.governing-body-member-card {
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08); /* Smoother shadow */
+    padding: 30px;
+    text-align: center;
+    transition: all 0.3s ease-in-out;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-bottom: 4px solid #007bff;
+    width: 100%;
+    max-width: 350px;
+}
+
+.governing-body-member-card:hover {
+    transform: translateY(-5px); /* Subtle lift on hover */
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1); /* Enhanced shadow on hover */
+}
+
+.member-image-wrapper {
+    margin-bottom: 25px;
+}
+
+.member-profile-image {
+    width: 160px;
+    height: 160px;
+    border-radius: 50%; /* Circular image */
+    object-fit: cover;
+    border: 3px dotted #002fff;
+    transition: border-color 0.3s ease-in-out;
+}
+
+.governing-body-member-card:hover .member-profile-image {
+    border-color: #ff0000; /* Border color changes on hover */
+}
+
+.member-info-content {
+    width: 100%;
+}
+
+.member-name {
+    font-size: 1.6rem;
+    font-weight: 600;
+    margin-bottom: 5px;
+    color: #343a40;
+}
+
+.member-title {
+    font-size: 1.1rem;
+    color: #6c757d;
+    margin-bottom: 20px;
+}
+
+.member-contact-info {
+    border-top: 1px solid #dee2e6;
+    padding-top: 20px;
+}
+
+.member-details-list {
+    list-style: none;
+    padding: 0;
+    text-align: left;
+}
+
+.member-details-list li {
+    margin-bottom: 10px;
+    font-size: 1rem;
+    color: #495057;
+    line-height: 1.4;
+}
+
+.member-details-list strong {
+    color: #343a40;
+    font-weight: 600;
+}
+
+.member-details-list a {
+    color: #007bff;
+    text-decoration: none;
+    transition: color 0.2s ease-in-out;
+}
+
+.member-details-list a:hover {
+    color: #0056b3;
+    text-decoration: underline;
+}
+
+
+/* --- Responsive Adjustments --- */
+
+/* For tablets and medium-sized screens */
+@media (max-width: 768px) {
+    .governing-body-page-main {
+        padding: 30px 15px;
+    }
+
+    .page-main-heading {
+        font-size: 2.2rem;
+    }
+
+    .governing-body-member-card {
+        padding: 25px;
+    }
+
+    .member-profile-image {
+        width: 140px;
+        height: 140px;
+    }
+    .member-name {
+        font-size: 1.4rem;
+    }
+    .member-title {
+        font-size: 1rem;
+    }
+}
+
+/* For small mobile phones */
+@media (max-width: 480px) {
+    .governing-body-page-main {
+        padding: 20px 10px;
+    }
+    
+    .page-main-heading {
+        font-size: 1.8rem;
+        margin-bottom: 30px;
+    }
+
+    .page-main-heading::after {
+        width: 60px;
+    }
+
+    .governing-body-profiles-grid {
+        grid-template-columns: 1fr; /* Stacks cards vertically on very small screens */
+    }
+    
+    .governing-body-member-card {
+        padding: 20px;
+    }
+
+    .member-profile-image {
+        width: 120px;
+        height: 120px;
+    }
+    
+    .member-name {
+        font-size: 1.3rem;
+    }
+    
+    .member-title {
+        font-size: 0.9rem;
+    }
+    
+    .member-details-list li {
+        font-size: 0.9rem;
+    }
+}

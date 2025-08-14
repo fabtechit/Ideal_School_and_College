@@ -1,0 +1,161 @@
+/* src/assets/css/gallery.css */
+
+/* --- General Page Styles --- */
+.gallery-page-main {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 20px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f4f7ff;
+}
+
+.page-main-heading {
+    text-align: center;
+    font-size: 2.8rem;
+    font-weight: 700;
+    color: #2c3e50;
+    margin-bottom: 50px;
+    position: relative;
+    padding-bottom: 15px;
+}
+
+.page-main-heading::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 4px;
+    background-color: #3498db;
+    border-radius: 2px;
+}
+
+.gallery-content-wrapper {
+    background: #ffffff;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.08);
+}
+
+.gallery-intro-paragraph {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: #555;
+    margin-bottom: 40px;
+    text-align: justify;
+    font-weight: 500;
+}
+
+/* --- Image Grid Styling --- */
+.image-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 25px;
+    justify-items: center;
+}
+
+.image-item {
+    position: relative;
+    width: 100%;
+    padding-bottom: 75%; /* 4:3 Aspect Ratio (height is 75% of width) */
+    overflow: hidden;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.image-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+}
+
+.gallery-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.image-item:hover .gallery-image {
+    transform: scale(1.05);
+}
+
+.image-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    border-radius: 10px;
+}
+
+.image-item:hover .image-overlay {
+    opacity: 1;
+}
+
+.image-caption {
+    color: #ffffff;
+    font-size: 1.1rem;
+    font-weight: 600;
+    text-align: center;
+    padding: 10px;
+}
+
+/* --- Responsive Adjustments --- */
+@media (max-width: 768px) {
+    .page-main-heading {
+        font-size: 2.2rem;
+        margin-bottom: 40px;
+    }
+    .gallery-content-wrapper {
+        padding: 25px;
+    }
+    .gallery-intro-paragraph {
+        font-size: 1rem;
+        margin-bottom: 30px;
+    }
+    .image-grid {
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 20px;
+    }
+    .image-item {
+        padding-bottom: 80%; /* Adjust aspect ratio slightly for smaller screens */
+    }
+    .image-caption {
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .gallery-page-main {
+        padding: 20px 10px;
+    }
+    .gallery-content-wrapper {
+        padding: 15px;
+    }
+    .page-main-heading {
+        font-size: 1.8rem;
+        margin-bottom: 30px;
+    }
+    .image-grid {
+        grid-template-columns: 1fr; /* Single column on very small screens */
+        gap: 15px;
+    }
+    .image-item {
+        padding-bottom: 70%; /* Adjust aspect ratio for single column */
+    }
+    .image-caption {
+        font-size: 0.95rem;
+    }
+}

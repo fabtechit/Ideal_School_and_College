@@ -1,0 +1,324 @@
+@import url('https://fonts.googleapis.com/css2?family=Tiro+Bangla:wght@400;700&family=Poppins:wght@400;600;700&display=swap');
+
+:root {
+  --primary-color: #0077b6;
+  --secondary-color: #00b4d8;
+  --text-dark: #212529;
+  --text-light: #f8f9fa;
+  --bg-primary: #fff;
+  --bg-secondary: #f0f4f8;
+  --shadow-light: rgba(0, 0, 0, 0.1);
+  --transition-speed: 0.4s;
+  --border-radius: 8px;
+  --font-bangla: 'Tiro Bangla', serif;
+  --font-english: 'Poppins', sans-serif;
+  --footer-bg: #2c3e50;
+  --footer-text: #ecf0f1;
+  --footer-heading: #fff;
+  --footer-accent: #3498db;
+}
+
+/* --- Base Footer Styles --- */
+.main-footer {
+  background-color: var(--footer-bg);
+  color: var(--footer-text);
+  padding-top: 3rem;
+  font-family: var(--font-bangla);
+  line-height: 1.6;
+}
+
+.container.footer-container {
+  display: flex;
+  justify-content: space-between;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.footer-column {
+  flex: 1 1 250px;
+  margin-bottom: 2rem;
+}
+
+.footer-left {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.footer-logo {
+  height: 180px;
+  margin-bottom: 1rem;
+  transition: transform var(--transition-speed) ease-in-out;
+}
+
+.footer-logo:hover {
+  transform: scale(1.05);
+}
+
+/* --- Current Time Display --- */
+.current-time {
+  margin-top: 1rem;
+  font-family: var(--font-english);
+  text-align: left;
+}
+
+.current-time p {
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+.current-time .time-display {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--footer-accent);
+  letter-spacing: 1px;
+}
+
+.footer-middle h3,
+.footer-timings h3,
+.footer-right h3 {
+  color: var(--footer-heading);
+  margin-bottom: 1.5rem;
+  font-size: 1.4rem;
+  position: relative;
+  font-weight: 700;
+}
+
+.footer-middle h3::after,
+.footer-timings h3::after,
+.footer-right h3::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -8px;
+  width: 50px;
+  height: 3px;
+  background-color: var(--footer-accent);
+}
+
+.footer-middle ul {
+  list-style: none;
+  padding: 0;
+}
+
+.footer-middle ul li {
+  margin-bottom: 0.8rem;
+}
+
+.footer-middle ul li a {
+  color: var(--footer-text);
+  text-decoration: none;
+  font-size: 1rem;
+  display: inline-block;
+  transition: color 0.2s ease-in-out, transform 0.2s ease-in-out;
+}
+
+.footer-middle ul li a:hover {
+  color: var(--footer-accent);
+  transform: translateX(5px);
+}
+
+/* --- School Timings Table Styles --- */
+.footer-timings {
+  flex: 1 1 250px;
+}
+
+.school-timings-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+  color: var(--text-light);
+  font-size: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.school-timings-table th, .school-timings-table td {
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 10px 15px;
+  text-align: center;
+  color: white;
+}
+
+.school-timings-table th {
+  background-color: rgba(255, 255, 255, 0.15);
+  color: var(--footer-heading);
+  font-weight: bold;
+}
+
+/* --- Contact & Socials Styles --- */
+.contact-info-text {
+  font-size: 1rem;
+  margin-bottom: 1rem;
+}
+
+.footer-right .contact-details p {
+  margin-bottom: 0.8rem;
+  font-size: 1rem;
+}
+
+.footer-right .contact-details p a {
+  color: var(--footer-text);
+  text-decoration: none;
+  transition: color var(--transition-speed);
+}
+.footer-right .contact-details p a:hover {
+  color: var(--footer-accent);
+}
+
+.footer-right .social-icons {
+  margin-top: 1.5rem;
+  display: flex;
+  gap: 0.75rem;
+}
+
+.footer-right .social-icons a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 45px;
+  height: 45px;
+  background-color: var(--footer-accent);
+  color: #ffffff;
+  border-radius: 50%;
+  font-size: 1.2rem;
+  transition: background-color var(--transition-speed), transform 0.2s ease-in-out;
+}
+
+.footer-right .social-icons a:hover {
+  background-color: var(--secondary-color);
+  transform: translateY(-5px) scale(1.1);
+}
+
+/* --- Footer Bottom Bar --- */
+.footer-bottom {
+  background-color: #1a252f;
+  color: #b4d8fd;
+  padding: 1rem 0;
+  font-size: 0.9rem;
+  margin-top: 3rem;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.footer-bottom-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.footer-bottom-container a{
+  color: var(--footer-accent);
+  text-decoration: none;
+  transition: color 0.2s ease-in-out;
+}
+
+.footer-bottom-container a:hover {
+  color: var(--secondary-color);
+  text-decoration: underline;
+}
+
+.developed-by-text,
+.copyright-text {
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+.scroll-to-top {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1000;
+}
+
+.scroll-to-top button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--footer-accent);
+  color: var(--footer-heading);
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  font-size: 1.2rem;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: background-color var(--transition-speed), transform 0.2s ease-in-out, box-shadow var(--transition-speed);
+}
+
+.scroll-to-top button:hover {
+  background-color: var(--secondary-color);
+  transform: scale(1.1);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* --- Responsive Design --- */
+@media (max-width: 992px) {
+  .footer-container {
+    gap: 1.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .footer-container {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  
+  .footer-column {
+    flex: 1 1 100%;
+    margin-bottom: 2rem;
+  }
+
+  .footer-left,
+  .footer-middle,
+  .footer-timings,
+  .footer-right {
+    align-items: center;
+  }
+  
+  .footer-middle h3::after,
+  .footer-timings h3::after,
+  .footer-right h3::after {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  
+  .footer-middle ul {
+    text-align: center;
+  }
+
+  .footer-middle ul li a {
+    padding-left: 0;
+  }
+
+  .footer-middle ul li a::before {
+    display: none;
+  }
+
+  .footer-right .contact-details {
+    text-align: center;
+  }
+  
+  .footer-right .social-icons {
+    justify-content: center;
+  }
+
+  .footer-bottom-container {
+    flex-direction: column;
+    gap: 0.75rem;
+    text-align: center;
+  }
+  
+  .developed-by-text,
+  .copyright-text {
+    text-align: center;
+  }
+
+  .scroll-to-top {
+    bottom: 10px;
+    right: 10px;
+  }
+}

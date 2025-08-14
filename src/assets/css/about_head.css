@@ -1,0 +1,258 @@
+:root {
+  --primary-color: #007bff;
+  --secondary-color: #6c757d;
+  --bg-light: #f8f9fa;
+  --bg-primary: #fff;
+  --text-dark: #343a40;
+  --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  --border-radius: 8px;
+}
+
+/* Base Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  color: var(--text-dark);
+  background-color: var(--bg-light);
+}
+
+.about-head-container {
+  display: flex;
+  flex-direction: row;
+  gap: 2rem;
+  padding: 2rem;
+  max-width: 1200px;
+  margin: auto;
+}
+
+/* Animations */
+@keyframes bounceIn {
+  0% {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  60% {
+    transform: scale(1.05);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* About Section Styles */
+.about-section {
+  flex: 3; /* Takes up 3/4 of the space on large screens */
+  background-color: var(--bg-primary);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
+  padding: 1.5rem;
+  animation: fadeIn 0.8s ease-out;
+}
+
+.about-header {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.about-header p {
+  background-color: rgb(196, 228, 255);
+  padding: 1rem 2rem;
+  border-radius: 50px;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #212529;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  animation: bounceIn 0.6s ease-out;
+}
+
+.about-content {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.about-image-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  min-width: 200px;
+}
+
+.head-image {
+  padding: .2rem;
+  width: 190px;
+  height: 240px;
+  /* border-radius: 50%; */
+  object-fit: cover;
+  border: 4px solid var(--primary-color);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease-in-out;
+}
+
+.head-image:hover {
+  transform: scale(1.05);
+}
+
+.head-name {
+  font-weight: bold;
+  margin-top: 1rem;
+  font-size: 1.1rem;
+}
+
+.head-title {
+  color: var(--secondary-color);
+  font-weight: normal;
+  font-size: 0.9rem;
+}
+
+.head-speech {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  font-size: .85rem;
+  line-height: 1.6;
+  text-align: justify;
+}
+
+/* Important Links Section Styles */
+.important-links-container {
+  flex: 1; /* Takes up 1/4 of the space on large screens */
+  background-color: var(--bg-primary);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
+  padding: 1rem;
+  animation: fadeIn 0.8s ease-out 0.2s;
+  animation-fill-mode: backwards;
+}
+
+.links-header {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.links-header p {
+  background-color: #a4e6ff;
+  padding: 0.75rem;
+  border-radius: var(--border-radius);
+  font-size: 1.25rem;
+  font-weight: bold;
+}
+
+.links-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.link-item {
+  padding: 0.2rem;
+  border-bottom: 1px solid #e9ecef;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.link-item:last-child {
+  border-bottom: none;
+}
+
+.link-item::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 123, 255, 0.1);
+  transition: left 0.3s ease;
+  z-index: 1;
+}
+
+.link-item.hovered::before {
+  left: 0;
+}
+
+.link-text {
+  display: block;
+  text-decoration: none;
+  color: var(--text-dark);
+  font-weight: 200;
+  position: relative;
+  z-index: 2;
+  transition: color 0.3s ease;
+  font-size: .85rem;
+}
+
+.link-item.hovered .link-text {
+  color: var(--primary-color);
+}
+
+.arrow {
+  color: var(--primary-color);
+  font-weight: bold;
+  margin-right: 0.5rem;
+  display: inline-block;
+  transition: transform 0.3s ease;
+}
+
+.link-item.hovered .arrow {
+  transform: translateX(5px);
+}
+
+/* Responsive Design */
+@media (max-width: 992px) {
+  .about-head-container {
+    flex-direction: column;
+    gap: 1.5rem;
+    padding: 1.5rem;
+  }
+
+  .about-content {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .about-image-card {
+    min-width: unset;
+  }
+
+  .head-speech {
+    text-align: left;
+  }
+
+  .important-links-container {
+    margin-top: 1rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .about-head-container {
+    padding: 1rem;
+  }
+
+  .about-header p {
+    font-size: 1rem;
+  }
+
+  .links-header p {
+    font-size: 1.1rem;
+  }
+}

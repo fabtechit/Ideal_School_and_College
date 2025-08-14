@@ -1,0 +1,118 @@
+/* src/assets/css/school-history.css */
+
+/* --- General Page Styles --- */
+.school-history-page-main {
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 40px 20px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f4f7ff;
+}
+
+.page-main-heading {
+    text-align: center;
+    font-size: 2.8rem;
+    font-weight: 700;
+    color: #2c3e50;
+    margin-bottom: 50px;
+    position: relative;
+    padding-bottom: 15px;
+}
+
+.page-main-heading::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 4px;
+    background-color: #3498db;
+    border-radius: 2px;
+}
+
+.history-content-wrapper {
+    background: #ffffff;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.08);
+}
+
+.history-paragraph {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: #444;
+    margin-bottom: 25px;
+    text-align: justify;
+}
+
+.history-paragraph:last-child {
+    margin-bottom: 0;
+}
+
+.intro-paragraph {
+    font-weight: 500;
+    color: #333;
+    margin-bottom: 35px;
+}
+
+/* --- Image and Caption Styling --- */
+.history-image-container {
+    text-align: center;
+    margin: 30px 0;
+}
+
+.history-image {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+}
+
+.image-caption {
+    font-size: 0.9rem;
+    color: #777;
+    margin-top: 10px;
+}
+
+/* --- Responsive Adjustments --- */
+@media (max-width: 768px) {
+    .page-main-heading {
+        font-size: 2.2rem;
+        margin-bottom: 40px;
+    }
+    .history-content-wrapper {
+        padding: 25px;
+    }
+    .history-paragraph {
+        font-size: 1rem;
+        margin-bottom: 20px;
+    }
+    .intro-paragraph {
+        margin-bottom: 25px;
+    }
+    .history-image-container {
+        margin: 25px 0;
+    }
+}
+
+@media (max-width: 480px) {
+    .school-history-page-main {
+        padding: 20px 15px;
+    }
+    .history-content-wrapper {
+        padding: 20px;
+    }
+    .history-paragraph {
+        font-size: 0.95rem;
+        line-height: 1.7;
+    }
+    .page-main-heading {
+        font-size: 1.8rem;
+        margin-bottom: 30px;
+    }
+    .history-image-container {
+        margin: 20px 0;
+    }
+}

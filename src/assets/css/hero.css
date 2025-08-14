@@ -1,0 +1,390 @@
+:root {
+  --primary-color: #0056b3;
+  --primary-dark: #003d82;
+  --secondary-color: #ff9900;
+  --secondary-dark: #e68a00;
+  --bg-light: #f5f7fa;
+  --text-dark: #333;
+  --text-light: #666;
+  --white: #ffffff;
+  --black: #000000;
+  --gray-light: #e9ecef;
+  --gray-medium: #ced4da;
+  --shadow-light: 0 2px 8px rgba(0, 0, 0, 0.1);
+  --shadow-medium: 0 4px 12px rgba(0, 0, 0, 0.15);
+  --shadow-dark: 0 6px 20px rgba(0, 0, 0, 0.2);
+  --border-radius-sm: 4px;
+  --border-radius-md: 8px;
+  --border-radius-lg: 12px;
+  --font-heading: 'Kalpurush', 'SolaimanLipi', 'Siyam Rupali', sans-serif;
+  --font-body: 'Inter', 'Arial', sans-serif;
+}
+
+/* Base Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+}
+
+body {
+  font-family: var(--font-body);
+  color: var(--text-dark);
+  background-color: var(--bg-light);
+  line-height: 1.6;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+button {
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Hero Container */
+.hero-container {
+  width: 100%;
+  max-width: 1600px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Top Navigation */
+.top-nav {
+    width: 100%;
+  background-color: var(--primary-color);
+  color: var(--white);
+  display: flex;
+  align-items: center;
+  /* padding: 0 1rem; */
+  box-shadow: var(--shadow-light);
+  position: relative;
+  z-index: 100;
+  overflow: hidden;
+}
+
+.logo {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 1.1rem;
+  padding: 0.5rem 1rem;
+  background-color: red;
+  border-radius: 0 .5rem .5rem 0;
+  margin-right: 1rem;
+  white-space: nowrap;
+  flex-shrink: 0;
+  z-index: 1;
+}
+
+.marquee-container {
+  flex: 1;
+  /* overflow: hidden; */
+  position: relative;
+  text-align: center !important;
+}
+
+.marquee-content {
+  display: inline-block;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  white-space: nowrap;
+  padding-right: 100%;
+  font-size: 0.95rem;
+}
+
+/* Main Content */
+.main-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding: 1.5rem;
+  width: 100%;
+}
+
+/* Hero Image Slider */
+.hero-image-slider {
+  position: relative;
+  width: 100%;
+  height: 400px;
+  border-radius: var(--border-radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-medium);
+}
+
+.hero-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.slider-controls {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 1rem;
+  pointer-events: none;
+}
+
+.slider-arrow {
+  pointer-events: auto;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: var(--white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.8;
+}
+
+.slider-arrow svg {
+  width: 1.2rem;
+  height: 1.2rem;
+}
+
+.slider-indicators {
+  position: absolute;
+  bottom: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 0.5rem;
+  z-index: 10;
+}
+
+.indicator {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.5);
+  cursor: pointer;
+}
+
+.indicator.active {
+  background-color: var(--secondary-color);
+}
+
+/* Right Sidebar */
+.right-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  width: 100%;
+}
+
+.dropdown-container {
+  background-color: var(--white);
+  border-radius: var(--border-radius-md);
+  box-shadow: var(--shadow-light);
+  overflow: hidden;
+}
+
+.dropdown-toggle {
+  width: 100%;
+  padding: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  text-align: left;
+}
+
+.dropdown-toggle h3 {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: var(--text-dark);
+}
+
+.notice-board .dropdown-toggle {
+  background-color: #f0f8ff;
+  border-bottom: 2px solid var(--primary-color);
+}
+
+.dropdown-icon {
+  transition: transform 0.3s ease;
+}
+
+.dropdown-content {
+  overflow: hidden;
+}
+
+.dropdown-content ul {
+  list-style: none;
+}
+
+.dropdown-content li {
+  padding: 0.6rem 0;
+  border-bottom: 1px solid var(--gray-light);
+}
+
+.dropdown-content li:last-child {
+  border-bottom: none;
+}
+
+.dropdown-content li a {
+  display: flex;
+  align-items: center;
+  color: var(--text-dark);
+  padding: 0 1rem;
+}
+
+.link-bullet {
+  margin-right: 0.5rem;
+  color: var(--secondary-color);
+}
+
+.notice-footer {
+  padding: 1rem;
+  text-align: right;
+}
+
+.see-all-btn {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  background-color: var(--secondary-color);
+  color: var(--white);
+  border-radius: var(--border-radius-sm);
+  font-weight: 600;
+}
+
+/* Sidebar Buttons */
+.sidebar-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.sidebar-buttons .dropdown-toggle {
+  background-color: var(--primary-color);
+  color: var(--white);
+  border-radius: var(--border-radius-sm);
+  padding: 0.9rem 1rem;
+}
+
+.sidebar-buttons .dropdown-toggle.active {
+  background-color: var(--primary-dark);
+}
+
+.sidebar-buttons .dropdown-content {
+  background-color: var(--white);
+}
+
+/* Responsive Design */
+@media (min-width: 768px) {
+  .main-content {
+    flex-direction: row;
+    padding: 2rem;
+  }
+
+  .hero-image-slider {
+    flex: 2;
+  }
+
+  .right-sidebar {
+    flex: 1;
+    min-width: 300px;
+  }
+
+  .sidebar-buttons {
+    display: grid;
+    /* grid-template-columns: repeat(2, 1fr); */
+    gap: 1rem;
+  }
+}
+
+@media (min-width: 992px) {
+  .hero-image-slider {
+    height: 450px;
+  }
+
+  .logo {
+    font-size: 1.2rem;
+    padding: 0.6rem 1.2rem;
+  }
+
+  .marquee-content {
+    font-size: 1rem;
+  }
+
+  .dropdown-toggle h3 {
+    font-size: 1.2rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .top-nav {
+    align-items: center;
+  }
+
+  .logo {
+    text-align: center;
+  }
+
+  .hero-image-slider {
+    height: 250px;
+  }
+
+  .slider-arrow {
+    width: 35px;
+    height: 35px;
+  }
+
+  .slider-indicators {
+    bottom: 0.5rem;
+  }
+
+  .indicator {
+    width: 8px;
+    height: 8px;
+  }
+
+  .dropdown-toggle {
+    padding: 0.8rem;
+  }
+
+  .dropdown-toggle h3 {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 400px) {
+  .hero-image-slider {
+    height: 200px;
+  }
+
+  .slider-arrow {
+    width: 30px;
+    height: 30px;
+  }
+
+  .slider-arrow svg {
+    width: 1rem;
+    height: 1rem;
+  }
+}
