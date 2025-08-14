@@ -1,13 +1,17 @@
 import React, { useState, useEffect, useRef } from "react";
 import ReactMarkdown from "react-markdown";
 import { motion, AnimatePresence } from "framer-motion";
-import { FaPaperPlane, FaTimes, FaComment, FaTrashAlt, FaRobot } from "react-icons/fa";
+import {
+  FaPaperPlane,
+} from "react-icons/fa";
 import "../assets/css/chatbot.css";
 
-// 🧠 Bangla School Knowledge Base
+// The chatbot's full knowledge base as a single, comprehensive context.
+// The AI will use this text to answer all questions.
 const chatbotKnowledgeBase = `
 হ্যালো! আমি **ঢাকা আইডিয়াল স্কুল অ্যান্ড কলেজ**-এর অফিসিয়াল চ্যাটবট। আমি আপনাকে স্কুল সম্পর্কিত যেকোনো তথ্য দিয়ে সাহায্য করতে প্রস্তুত।
 
+---
 **🏫 আমাদের সম্পর্কে:**
 
 * **লক্ষ্য:** আমরা শিক্ষার্থীদের জ্ঞান, মূল্যবোধ ও দক্ষতা বিকাশের মাধ্যমে একজন পূর্ণাঙ্গ মানুষ হিসেবে গড়ে তোলার লক্ষ্য নিয়ে কাজ করি।
@@ -47,7 +51,6 @@ const Chatbot = () => {
   const [isTyping, setIsTyping] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const messagesEndRef = useRef(null);
-  const inputRef = useRef(null);
 
   useEffect(() => {
     if (messages.length > 0) {
@@ -62,27 +65,17 @@ const Chatbot = () => {
       setMessages([
         {
           sender: "bot",
-          text: "হ্যালো! আমি ঢাকা আইডিয়াল স্কুল অ্যান্ড কলেজ-এর অফিসিয়াল চ্যাটবট। আপনি কী জানতে চান?",
+          text: "হ্যালো! আমি ঢাকা আইডিয়াল স্কুল অ্যান্ড কলেজের চ্যাটবট। আমি আপনাকে কীভাবে সাহায্য করতে পারি?",
         },
       ]);
     }
   }, [isOpen, messages.length]);
 
   useEffect(() => {
-    scrollToBottom();
-  }, [messages, isTyping]);
-
-  useEffect(() => {
-    if (isOpen && inputRef.current) {
-      inputRef.current.focus();
-    }
-  }, [isOpen]);
-
-  const scrollToBottom = () => {
     if (messagesEndRef.current) {
       messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
     }
-  };
+  }, [messages]);
 
   const handleSendMessage = async (e) => {
     e.preventDefault();
@@ -97,9 +90,12 @@ const Chatbot = () => {
     const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
 
     if (!apiKey) {
+      console.error(
+        "API Key not found. Please set VITE_GEMINI_API_KEY in your .env file."
+      );
       const botMessage = {
         sender: "bot",
-        text: "API কী পাওয়া যায়নি। অনুগ্রহ করে .env ফাইলে সেট করুন।",
+        text: "Error: The API key is missing. Please set it up in your .env file to continue.",
       };
       setIsTyping(false);
       setMessages((prevMessages) => [...prevMessages, botMessage]);
@@ -107,11 +103,11 @@ const Chatbot = () => {
     }
 
     try {
-      const combinedPrompt = `${systemInstruction}\n\n${chatbotKnowledgeBase}\n\nব্যবহারকারীর প্রশ্ন: "${userMessage.text}"`;
+      const chatHistory = [];
+      const combinedPrompt = `${systemInstruction}\n\n${chatbotKnowledgeBase}\n\nUser's question: "${userMessage.text}"`;
+      chatHistory.push({ role: "user", parts: [{ text: combinedPrompt }] });
 
-      const payload = {
-        contents: [{ role: "user", parts: [{ text: combinedPrompt }] }],
-      };
+      const payload = { contents: chatHistory };
 
       const response = await fetch(apiUrl, {
         method: "POST",
@@ -125,47 +121,39 @@ const Chatbot = () => {
         response.ok &&
         result.candidates &&
         result.candidates.length > 0 &&
-        result.candidates[0].content?.parts?.length > 0
+        result.candidates[0].content &&
+        result.candidates[0].content.parts &&
+        result.candidates[0].content.parts.length > 0
       ) {
         const text = result.candidates[0].content.parts[0].text;
-        setMessages((prevMessages) => [
-          ...prevMessages,
-          { sender: "bot", text },
-        ]);
+        const botMessage = { sender: "bot", text: text };
+        setIsTyping(false);
+        setMessages((prevMessages) => [...prevMessages, botMessage]);
       } else {
-        const errorMessage =
-          result.error?.message || "একটি অজানা ত্রুটি ঘটেছে।";
-        setMessages((prevMessages) => [
-          ...prevMessages,
-          {
-            sender: "bot",
-            text: `দুঃখিত! আমি উত্তর দিতে পারছি না। বিস্তারিত: ${errorMessage}`,
-          },
-        ]);
+        console.error("API Error or Unexpected Response:", result);
+        const errorMessage = result.error
+          ? `API Error: ${result.error.message}`
+          : "An unknown error occurred.";
+        const botMessage = {
+          sender: "bot",
+          text: `I'm sorry, an error occurred with the API. Please try again. Details: ${errorMessage}`,
+        };
+        setIsTyping(false);
+        setMessages((prevMessages) => [...prevMessages, botMessage]);
       }
     } catch (error) {
-      console.error("Fetch error:", error);
-      setMessages((prevMessages) => [
-        ...prevMessages,
-        {
-          sender: "bot",
-          text: "নেটওয়ার্ক সমস্যা হয়েছে। অনুগ্রহ করে পরে আবার চেষ্টা করুন।",
-        },
-      ]);
-    } finally {
+      console.error("Fetch failed:", error);
+      const botMessage = {
+        sender: "bot",
+        text: "I'm sorry, I couldn't connect to the API. Please check your network connection and try again.",
+      };
       setIsTyping(false);
+      setMessages((prevMessages) => [...prevMessages, botMessage]);
     }
   };
 
   const toggleChat = () => {
     setIsOpen(!isOpen);
-    if (!isOpen) {
-      setTimeout(() => {
-        if (inputRef.current) {
-          inputRef.current.focus();
-        }
-      }, 300);
-    }
   };
 
   const clearChat = () => {
@@ -173,161 +161,173 @@ const Chatbot = () => {
     localStorage.removeItem("chatbotMessages");
   };
 
-  const messageVariants = {
-    hidden: { opacity: 0, y: 20 },
+  const chatVariants = {
+    hidden: { opacity: 0, scale: 0.5, y: 100 },
     visible: {
       opacity: 1,
-      y: 0,
-      transition: {
-        type: "spring",
-        stiffness: 500,
-        damping: 20,
-        duration: 0.3
-      }
-    },
-  };
-
-  const typingVariants = {
-    initial: { scale: 0 },
-    animate: {
       scale: 1,
-      transition: {
-        type: "spring",
-        stiffness: 500,
-        damping: 20,
-        duration: 0.2,
-      },
+      y: 0,
+      transition: { type: "spring", stiffness: 100, damping: 20 },
     },
+    exit: { opacity: 0, scale: 0.5, y: 100, transition: { duration: 0.3 } },
   };
 
-  const containerVariants = {
-    hidden: { opacity: 0, y: 20 },
+  const buttonVariants = {
+    tap: { scale: 0.95 },
+    hover: { scale: 1.05 },
+  };
+
+  const messageContainerVariants = {
+    hidden: { opacity: 0 },
     visible: {
       opacity: 1,
-      y: 0,
       transition: {
-        when: "beforeChildren",
         staggerChildren: 0.1,
       },
     },
   };
 
+  const messageItemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
+  };
+
   return (
     <div className="chatbot-container">
+      <motion.div
+        className="chatbot-tooltip-wrapper"
+        animate={{ y: isOpen ? 100 : 0 }}
+      >
+        <AnimatePresence>
+          {!isOpen && (
+            <motion.span
+              className="chatbot-tooltip"
+              initial={{ opacity: 0, x: 20 }}
+              animate={{
+                opacity: 1,
+                x: 0,
+                rotateY: [0, 15, 0, -15, 0], // 3D rotation effect
+                scale: [1, 1.05, 1], // Subtle pulsing
+              }}
+              exit={{ opacity: 0, x: 20 }}
+              transition={{
+                delay: 0.5,
+                duration: 2,
+                repeat: Infinity, // Makes the animation loop forever
+                ease: "easeInOut",
+              }}
+            >
+              Hi!✋
+            </motion.span>
+          )}
+        </AnimatePresence>
+        <motion.button
+          onClick={toggleChat}
+          className="chatbot-toggle-buttons"
+          variants={buttonVariants}
+          whileHover="hover"
+          whileTap="tap"
+        >
+          <AnimatePresence mode="wait">
+            <motion.span
+              key={isOpen ? "close" : "open"}
+              initial={{ scale: 0.5, rotate: isOpen ? -90 : 90 }}
+              animate={{ scale: 1, rotate: 0 }}
+              exit={{ scale: 0.5, rotate: isOpen ? 90 : -90 }}
+              transition={{ duration: 0.2 }}
+              className="chatbot-icon"
+            >
+              {isOpen ? "✕" : "💬"}
+            </motion.span>
+          </AnimatePresence>
+        </motion.button>
+      </motion.div>
+
       <AnimatePresence>
         {isOpen && (
           <motion.div
             className="chatbot-window"
-            initial={{ scale: 0.8, opacity: 0, y: 20 }}
-            animate={{ scale: 1, opacity: 1, y: 0 }}
-            exit={{ scale: 0.8, opacity: 0, y: 20 }}
-            transition={{ type: "spring", stiffness: 300, damping: 20 }}
+            variants={chatVariants}
+            initial="hidden"
+            animate="visible"
+            exit="exit"
           >
             <div className="chatbot-header">
-              <div className="chatbot-title-wrapper">
-                <FaRobot className="chatbot-icon" />
-                <h3 className="chatbot-title">ঢাকা আইডিয়াল স্কুল</h3>
-              </div>
+              <h3>এআই অ্যাসিস্ট্যান্ট</h3>
               <div className="chatbot-header-buttons">
                 <motion.button
                   onClick={clearChat}
-                  className="trash-button"
+                  className="clear-button"
+                  title="চ্যাট মুছুন"
+                  whileHover={{ scale: 1.1, rotate: 10 }}
                   whileTap={{ scale: 0.9 }}
-                  style={{padding: "0rem !important"}}
                 >
-                  <FaTrashAlt />
+                  <span role="img" aria-label="clear chat">
+                    🗑️
+                  </span>
                 </motion.button>
                 <motion.button
                   onClick={toggleChat}
                   className="close-button"
+                  whileHover={{ rotate: 90 }}
                   whileTap={{ scale: 0.9 }}
                 >
-                  <FaTimes />
+                  &times;
                 </motion.button>
               </div>
             </div>
-
-            <div className="chatbot-messages-wrapper">
-              <motion.div
-                className="messages-container"
-                variants={containerVariants}
-                initial="hidden"
-                animate="visible"
-              >
-                <AnimatePresence>
-                  {messages.map((msg, index) => (
-                    <motion.div
-                      key={index}
-                      className={`message ${msg.sender}`}
-                      variants={messageVariants}
-                      initial="hidden"
-                      animate="visible"
-                      exit="exit"
-                      layout
-                    >
-                      <div className="message-bubble">
-                        <ReactMarkdown>{msg.text}</ReactMarkdown>
-                      </div>
-                    </motion.div>
-                  ))}
-                  {isTyping && (
-                    <motion.div
-                      className="message bot typing-indicator"
-                      variants={typingVariants}
-                      initial="initial"
-                      animate="animate"
-                    >
-                      <div className="message-bubble">
-                        <div className="typing-dots">
-                          <span></span>
-                          <span></span>
-                          <span></span>
-                        </div>
-                      </div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-                <div ref={messagesEndRef} />
-              </motion.div>
-            </div>
-
+            <motion.div
+              className="chatbot-messages"
+              variants={messageContainerVariants}
+              initial="hidden"
+              animate="visible"
+            >
+              <AnimatePresence>
+                {messages.map((msg, index) => (
+                  <motion.div
+                    key={index}
+                    className={`message ${msg.sender}`}
+                    variants={messageItemVariants}
+                  >
+                    <div className="message-bubble">
+                      <ReactMarkdown>{msg.text}</ReactMarkdown>
+                    </div>
+                  </motion.div>
+                ))}
+              </AnimatePresence>
+              {isTyping && (
+                <div className="message bot typing-indicator">
+                  <div className="message-bubble">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                  </div>
+                </div>
+              )}
+              <div ref={messagesEndRef} />
+            </motion.div>
             <form onSubmit={handleSendMessage} className="chatbot-input-form">
               <input
-                ref={inputRef}
                 type="text"
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
-                placeholder="আপনার প্রশ্ন লিখুন..."
+                placeholder="আপনার বার্তা টাইপ করুন..."
               />
               <motion.button
                 type="submit"
-                disabled={isTyping}
-                whileTap={{ scale: 0.95 }}
                 whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
               >
                 <FaPaperPlane />
               </motion.button>
             </form>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
-      <AnimatePresence>
-        {!isOpen && (
-          <motion.div
-            className="chatbot-toggle-button-wrapper"
-            initial={{ opacity: 0, scale: 0 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0 }}
-            transition={{ type: "spring", stiffness: 200, damping: 10 }}
-          >
             <motion.button
               onClick={toggleChat}
-              className="chatbot-toggle-button"
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.9 }}
+              className="chatbot-bottom-close-button"
+              variants={buttonVariants}
+              whileTap="tap"
             >
-              <FaComment />
+              <span className="bottom-close-icon">✕</span>
             </motion.button>
           </motion.div>
         )}
