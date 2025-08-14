@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import LLoadingAnimation from "./loader/loader";
-import ScrollTop from "./ScrollTop/scrolltop";
+import ScrollTop from "./scrolltop/scrolltop";
 
 import Navbar from './navbar/navbar';
 import Hero from './pages/hero';
