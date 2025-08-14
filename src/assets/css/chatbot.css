@@ -92,7 +92,7 @@
 .clear-button {
   background: transparent;
   border: none;
-  color: rgb(255, 0, 0);
+  color: rgb(255, 0, 0) !important;
   font-size: 24px;
   cursor: pointer;
   opacity: 0.8;

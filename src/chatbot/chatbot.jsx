@@ -3,6 +3,8 @@ import ReactMarkdown from "react-markdown";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   FaPaperPlane,
+  FaTrashAlt,
+  FaRobot
 } from "react-icons/fa";
 import "../assets/css/chatbot.css";
 
@@ -253,7 +255,7 @@ const Chatbot = () => {
             exit="exit"
           >
             <div className="chatbot-header">
-              <h3>এআই অ্যাসিস্ট্যান্ট</h3>
+              <h3><FaRobot /> AI Assistant</h3>
               <div className="chatbot-header-buttons">
                 <motion.button
                   onClick={clearChat}
@@ -263,7 +265,7 @@ const Chatbot = () => {
                   whileTap={{ scale: 0.9 }}
                 >
                   <span role="img" aria-label="clear chat">
-                    🗑️
+                    <p style={{ fontSize: "20px", color: "rgba(255, 255, 255, 1)" }}><FaTrashAlt /></p>
                   </span>
                 </motion.button>
                 <motion.button
@@ -317,8 +319,9 @@ const Chatbot = () => {
                 type="submit"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
+                style={{ background: "linear-gradient(to right, #6b77f8, #30bbfb, #6b77f8)", color: "rgb(0, 0, 0)" }}
               >
-                <FaPaperPlane />
+                <p style={{ fontSize: "15px !important" }}><FaPaperPlane /></p>
               </motion.button>
             </form>
             <motion.button
