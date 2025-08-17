@@ -13,9 +13,8 @@ const images = [image1, image2, image3, image4];
 const Hero = () => {
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
     const [activeDropdown, setActiveDropdown] = useState('notice');
-    const [direction, setDirection] = useState(1); // 1 for forward, -1 for backward
+    const [direction, setDirection] = useState(1);
 
-    // Animation variants for image slider
     const slideVariants = {
         hidden: (direction) => ({
             x: direction > 0 ? '100%' : '-100%',
@@ -105,6 +104,8 @@ const Hero = () => {
         { text: 'এসএসসি পরীক্ষার ফলাফল ২০২৪', url: '#' },
     ];
 
+    const marqueeText = "👍 বিজ্ঞান মেলা প্রস্তুতি মূলক 👍 এসএসসি পরীক্ষা ২০২৫ এর ব্যবহারিক পরীক্ষার গ্রুপ ও আসন বিন্যাস 👍 বিজ্ঞান মেলা প্রস্তুতি মূলক 👍 এসএসসি পরীক্ষা ২০২৫ এর ব্যবহারিক পরীক্ষার গ্রুপ ও আসন বিন্যাস";
+
     return (
         <div className="hero-container">
             
@@ -112,23 +113,23 @@ const Hero = () => {
                 className="top-nav"
                 initial={{ y: -50, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
-                transition={{ duration: 0.5, type: 'spring' }}
+                transition={{ duration: 0.5, type: 'spring', delay: 0.2 }}
             >
                 <span className="logo">নোটিশ: </span>
-                <motion.div 
-                    className="marquee-container"
-                    initial={{ x: '100%' }}
-                    animate={{ x: '-100%' }}
-                    transition={{ 
-                        duration: 20, 
-                        repeat: Infinity,
-                        ease: 'linear'
-                    }}
-                >
-                    <div className="marquee-content">
-                        👍 বিজ্ঞান মেলা প্রস্তুতি মূলক 👍 এসএসসি পরীক্ষা ২০২৫ এর ব্যবহারিক পরীক্ষার গ্রুপ ও আসন বিন্যাস 👍 বিজ্ঞান মেলা প্রস্তুতি মূলক 👍 এসএসসি পরীক্ষা ২০২৫ এর ব্যবহারিক পরীক্ষার গ্রুপ ও আসন বিন্যাস
-                    </div>
-                </motion.div>
+                <div className="marquee-container">
+                    <motion.div 
+                        className="marquee-content"
+                        initial={{ x: 0 }}
+                        animate={{ x: '-100%' }}
+                        transition={{ 
+                            duration: 15, 
+                            repeat: Infinity,
+                            ease: 'linear'
+                        }}
+                    >
+                        {marqueeText}
+                    </motion.div>
+                </div>
             </motion.div>
 
             <div className="main-content">
